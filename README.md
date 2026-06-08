@@ -1,10 +1,4 @@
 ```c
-#include <stdio.h>
-
-int main() {
-    printf("Exemplo de código colorido!\n");
-    return 0;
-}
 
 
 # Exercícios de Programação
