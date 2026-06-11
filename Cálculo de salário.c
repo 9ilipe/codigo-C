@@ -10,16 +10,12 @@
 //Transporte — 6%
 //Plano Saúde — 9%
 
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
-#include <locale.h>
 
-
-int main()    {
-setlocale(LC_ALL, "");
+int main() {
 
     printf("Digite 1 para Imposto de renda - 5%%\n");
     printf("Digite 2 para INSS - 11%%\n");
@@ -28,45 +24,64 @@ setlocale(LC_ALL, "");
     printf("Digite 5 para Transporte - 6%%\n");
     printf("Digite 6 para Plano de saúde - 9%%\n");
 
-char opcao;
-    printf("\nEscolha o que quer calcular ");
+    char opcao;
+    printf("\nEscolha o que quer calcular: ");
     scanf("%c", &opcao);
 
-float salario, resultado;
-printf("Digite o valor do seu salário R$ ");
-scanf("%f",&salario);
+    float salario, resultado;
+    printf("Digite o valor do seu salário R$ ");
+    scanf("%f", &salario);
 
-switch (opcao) {
+    // --- VALIDAÇÃO DA OPÇÃO (IF / ELSE) ---
+    // Se a opção estiver entre '1' e '6', o programa roda normalmente
+    if (opcao >= '1' && opcao <= '6') {
+        
+        switch (opcao) {
+            case '1': 
+                resultado = salario * 0.05;
+                break;
+            case '2': 
+                resultado = salario * 0.11;
+                break;
+            case '3': 
+                resultado = salario * 0.08;
+                break;
+            case '4': 
+                resultado = salario * 0.01;
+                break;    
+            case '5': 
+                resultado = salario * 0.06;
+                break;    
+            case '6': 
+                resultado = salario * 0.09;
+                break;
+        } // Fim do switch
 
-    default: // Se digitar qualquer outra coisa
-        printf("Erro: Opção inválida! Escolha um número de 1 a 6.");
-        break;  
-    case '1': // Se o usuário digitou '1'
-        resultado = salario * 0.05;
-        printf("O valor do Imposto de Renda é R$ %.2f", resultado);
-        break;
-    case '2': // Se o usuário digitou '2'
-        resultado = salario * 0.11;
-        printf("O valor do INSS é R$ %.2f", resultado);
-        break;
-    case '3': // Se o usuário digitou '3'
-        resultado = salario * 0.08;
-        printf("O valor do FGTS é R$ %.2f", resultado);
-        break;
-    case '4': // Se o usuário digitou '4'
-        resultado = salario * 0.01;
-        printf("O valor do Sindicato é R$ %.2f", resultado);
-        break;    
-    case '5': // Se o usuário digitou '5'
-        resultado = salario * 0.06;
-        printf("O valor do Transporte é R$ %.2f", resultado);
-        break;    
-    case '6': // Se o usuário digitou '6'
-        resultado = salario * 0.09;
-        printf("O valor do Plano de saúde é R$ %.2f", resultado);
-        break;
-      
+        // --- MÁGICA DA FORMATAÇÃO ---
+        int reais = (int)resultado; 
+        int centavos = (int)((resultado - reais) * 100);
+
+        // Se o valor tiver milhar (ex: R$ 1.250,50)
+        if (reais >= 1000) {
+            int milhar = reais / 1000;
+            int resto_reais = reais % 1000;
+            
+            printf("\n======================================");
+            printf("\nO valor calculado é R$ %d.%03d,%02d", milhar, resto_reais, centavos);
+            printf("\n======================================\n");
+        } 
+        // Se o valor for menor que mil (ex: R$ 150,50)
+        else {
+            printf("\n======================================");
+            printf("\nO valor calculado é R$ %d,%02d", reais, centavos);
+            printf("\n======================================\n");
+        }
+
+    } 
+    // Se o usuário digitou 7, 8, 'A' ou qualquer outra coisa inválida
+    else {
+        printf("\n[ERRO] Você digitou uma opção incorreta! Digite novamente a opção correta entre 1 e 6.\n");
+    }
+
+    return 0;
 }
-return 0;
-}
-    
